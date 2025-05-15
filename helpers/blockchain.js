@@ -4,7 +4,7 @@ const { Web3 } = require('web3');
 const fs = require('fs');
 const abi = JSON.parse(fs.readFileSync('abi.json', 'utf8'));
 
-async function main() {
+async function web3Configuration() {
   const network = process.env.RPC_URL;
 
   // connection to blockchain network
@@ -17,44 +17,72 @@ async function main() {
     "0x" + process.env.SIGNER_PRIVATE_KEY
   );
   web3.eth.accounts.wallet.add(signer);
-  
 
   // contract instance
   const contract = new web3.eth.Contract(
     abi, process.env.CONTRACT_ADDRESS
   );
 
-  // transaction
-  // const method_abi = contract.methods.issueCertificate('0xd74bd4d60851b165c5a70a2d0c81480ae0424122440c621ec1e63ab3f1c9b321', "Asep", "Basis Data").encodeABI()
-  // const tx = {
-  //   from: signer.address,
-  //   to: contract.options.address,
-  //   data: method_abi,
-  //   value: "0",
-  //   gasPrice: "100000000",
-  // }
-  // const gas_estimate = await web3.eth.estimateGas(tx)
-  // tx.gas = gas_estimate
-  // const signedTx = await web3.eth.accounts.signTransaction(
-  //   tx,
-  //   signer.privateKey
-  // )
-  // console.log("Raw transaction data: " + signedTx.rawTransaction)
-  // // Sending the transaction to the network
-  // const receipt = await web3.eth
-  //   .sendSignedTransaction(signedTx.rawTransaction)
-  //   .once("transactionHash", (txhash) => {
-  //     console.log(`Mining transaction ...`)
-  //     console.log(`https://${network}.etherscan.io/tx/${txhash}`)
-  //   })
-  // // The transaction is now on chain!
-  // console.log(`Mined in block ${receipt.blockNumber}`)
-
-
-  // verify hash from blockchain
-  const result = await contract.methods.verifyCertificate('0xd74bd4d60851b165c5a70a2d0c81480ae0424122440c621ec1e63ab3f1c9b321').call();
-  console.log(result)
-
+  return { web3, signer, contract, network };
 }
 
-main()
+async function transactionSigner(hash, name, course) {
+  const { web3, signer, contract, network } = await web3Configuration();
+  const certHash = '0x' + hash;
+
+  // store to the blockchain
+  const method_abi = contract
+    .methods
+    .issueCertificate(certHash, name, course)
+    .encodeABI();
+  
+  // get gas price
+  const gasPrice = await web3.eth.getGasPrice();
+
+  // transaction information
+  const tx = {
+    from: signer.address,
+    to: contract.options.address,
+    data: method_abi,
+    value: "0",
+    gasPrice: gasPrice,
+  }
+
+  // estimate gas
+  const gasEstimate = await web3
+    .eth
+    .estimateGas(tx);
+
+  tx.gas = gasEstimate;
+
+  // sign to wallet account
+  const signedTx = await web3.eth.accounts.signTransaction(
+    tx,
+    signer.privateKey
+  )
+
+  // Sending the transaction to the network
+  const receipt = await web3.eth
+    .sendSignedTransaction(signedTx.rawTransaction)
+    .once("transactionHash", (txhash) => {
+      console.log(`Mining transaction ...`)
+      console.log(`https://${network}.etherscan.io/tx/${txhash}`)
+    })
+
+    return {
+      raw_transaction: signedTx.rawTransaction,
+      block: receipt.blockNumber.toString(),  // The transaction is now on chain!
+    }
+}
+
+// verify certificate
+async function verifyCertificate(hash) {
+  const { contract } = await web3Configuration();
+
+  // verify hash from blockchain
+  const certHash ="0x" + hash
+  const result = await contract.methods.verifyCertificate(certHash).call();
+  console.log(result)
+}
+
+module.exports = { transactionSigner, verifyCertificate };
