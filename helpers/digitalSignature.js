@@ -1,25 +1,25 @@
 const fs = require('fs');
 const crypto = require('crypto');
 
+
 const privateKey = fs.readFileSync('keys/private.pem', 'utf-8');
 const publicKey = fs.readFileSync('keys/public.pem', 'utf-8');
-const document = "ini harus  dijaga";
-
 
 // generate hash from document
-function createHash(document){
-  return crypto.createHash('sha256').update(document).digest('hex');
+function createHash(pdf){
+  return crypto.createHash('sha256').update(pdf).digest('hex');
 }
 
-function signDocument(document) {
+function signDocument(pdfPath) {
+  const pdf = fs.readFileSync(pdfPath);
+  
   // call hash function to generate hash
-  const hash = createHash(document)
+  const hash = createHash(pdf)
   
   // sign hash with the private key
   const signature = crypto.sign('sha256',  Buffer.from(hash), privateKey).toString('hex');
   
-  return { hash, signature 
-  }
+  return { hash, signature }
 }
 
 function verifyDocument(document, signature) {
