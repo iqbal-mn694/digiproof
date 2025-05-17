@@ -12,7 +12,7 @@ function createHash(pdf){
 
 function signDocument(pdfPath) {
   const pdf = fs.readFileSync(pdfPath);
-  
+
   // call hash function to generate hash
   const hash = createHash(pdf)
   
@@ -22,9 +22,9 @@ function signDocument(pdfPath) {
   return { hash, signature }
 }
 
-function verifyDocument(document, signature) {
+function verifyDocument(pdfBuffer, signature) {
   // call hash function to recalculate hash document
-  const hash = createHash(document);
+  const hash = createHash(pdfBuffer);
 
   // verify signature
   const isValid = crypto.verify('sha256', Buffer.from(hash), publicKey, Buffer.from(signature, 'hex'));
