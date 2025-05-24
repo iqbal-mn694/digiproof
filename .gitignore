@@ -132,5 +132,5 @@ dist
 # keys
 *.pem 
 *.pdf 
-*.key
+private.key
 *.p12
