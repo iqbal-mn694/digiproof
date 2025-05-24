@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Digiproof</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-white">
+  <%- include('partials/navbar') %>
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center justify-center w-full min-h-screen px-4 text-center bg-gradient-to-br from-[#b92b27] to-[#1565c0]">
+    <div class="flex flex-col items-center justify-center w-full">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-lg animate-fade-in">Selamat Datang di Digital Ijazah Signature</h1>
+      <p class="mb-0 md:mb-2 text-lg md:text-xl text-white/90 animate-fade-in-slow">Website untuk generate dan verifikasi ijazah digital dengan tanda tangan elektronik.</p>
+    </div>
+  </section>
+
+  <!-- Card Edukasi Section -->
+  <section class="flex flex-col items-center justify-center w-full px-4 mt-[-5rem] md:mt-[-7rem] mb-12 relative z-10">
+    <div class="flex flex-col md:flex-row gap-4 w-full max-w-4xl justify-center mb-8">
+      <!-- Card Digital Signature -->
+      <div class="flex-1 max-w-md bg-white rounded-xl shadow-xl p-5 transition-transform hover:-translate-y-2 hover:shadow-2xl duration-300 text-center mx-auto">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-[#b92b27]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 01-8 0m8 0a4 4 0 00-8 0m8 0V5a4 4 0 00-8 0v2m8 0a4 4 0 01-8 0m8 0v2a4 4 0 01-8 0V7" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-2 text-[#b92b27]">Apa itu Digital Signature?</h2>
+        <p class="text-gray-700">Digital signature adalah tanda tangan elektronik yang digunakan untuk menjamin keaslian dan integritas dokumen digital. Dengan digital signature, ijazah yang diterbitkan dapat diverifikasi keasliannya secara online.</p>
+      </div>
+      <!-- Card Blockchain -->
+      <div class="flex-1 max-w-md bg-white rounded-xl shadow-xl p-5 transition-transform hover:-translate-y-2 hover:shadow-2xl duration-300 text-center mx-auto">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-[#1565c0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 7v7m0 0l-4 4m4-4l4 4" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-2 text-[#1565c0]">Peran Blockchain</h2>
+        <p class="text-gray-700">Blockchain adalah teknologi penyimpanan data terdesentralisasi yang transparan dan aman. Dengan blockchain, data ijazah yang sudah ditandatangani digital akan tercatat secara permanen dan tidak dapat diubah, sehingga memudahkan proses verifikasi oleh pihak manapun.</p>
+      </div>
+    </div>
+
+    <!-- Card Cara Kerja Website -->
+    <div class="w-full max-w-4xl mx-auto">
+      <div class="bg-white rounded-xl shadow-xl p-5 text-center flex flex-col items-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-[#8e24aa]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 text-[#8e24aa]">Cara Kerja Website</h2>
+        <div class="flex flex-col md:flex-row gap-6 justify-center items-center w-full">
+          <div class="flex-1 min-w-[180px]">
+            <div class="font-bold text-lg text-[#b92b27] mb-1">1. Generate Ijazah</div>
+            <div class="text-gray-600 text-base">Pengguna mengisi data ijazah pada form generate, lalu sistem membuat ijazah digital beserta digital signature-nya.</div>
+          </div>
+          <div class="flex-1 min-w-[180px]">
+            <div class="font-bold text-lg text-[#1565c0] mb-1">2. Simpan ke Blockchain</div>
+            <div class="text-gray-600 text-base">Bitrange dari PDF ijazahnya diambil dan diextract hanya konten utama saja tidak termasuk meta data digital signature. Hasil extractnya kemudian dilakukan hashing dan hashingnya  disimpan ke blockchain.</div>
+          </div>
+          <div class="flex-1 min-w-[180px]">
+            <div class="font-bold text-lg text-[#8e24aa] mb-1">3. Verifikasi Ijazah</div>
+            <div class="text-gray-600 text-base">Siapa saja dapat memverifikasi keaslian ijazah digital mengupload PDF ijazah di bagian halaman verifikasi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section About Us -->
+  <section class="flex flex-col items-center justify-center w-full px-4 min-h-screen bg-gradient-to-t from-[#1565c0]/20 via-white to-white -mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center text-[#b92b27]">Our Team</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
+        <img src="images/bunga.jpg" alt="Profile 1" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-[#b92b27]/40" />
+        <h3 class="text-xl font-bold text-gray-800 mb-1">Bunga Nur Munawaroh</h3>
+        <div class="text-[#b92b27] font-semibold mb-2">237006110</div>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
+        <img src="images/raihan.jpg" alt="Profile 2" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-[#1565c0]/40" />
+        <h3 class="text-xl font-bold text-gray-800 mb-1">Muhammad Raihan A</h3>
+        <div class="text-[#1565c0] font-semibold mb-2">237006113</div>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition">
+        <img src="images/iqbal.jpg" alt="Profile 3" class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-[#8e24aa]/40" />
+        <h3 class="text-xl font-bold text-gray-800 mb-1">Iqbal Mutaqin</h3>
+        <div class="text-[#8e24aa] font-semibold mb-2">237006120</div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: none; }
+    }
+    .animate-fade-in { animation: fade-in 1s cubic-bezier(.4,0,.2,1) both; }
+    .animate-fade-in-slow { animation: fade-in 1.5s cubic-bezier(.4,0,.2,1) both; }
+  </style>
+</body>
+</html>
